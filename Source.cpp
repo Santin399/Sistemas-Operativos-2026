@@ -5,17 +5,23 @@
 using namespace std;
 
 int main() {
-	string archivo = "doc.txt";
-	string Texto = "";
-	cout << "Inserte texto para el archivo:" << endl;
-	getline(cin, Texto);
-	Texto = Texto + "\n";
+    string archivo = "doc.txt";
+    string texto;
 
-	fstream my_txt;
-	my_txt.open(archivo, ios::app);
-	my_txt.write(Texto.c_str(), Texto.size());
-	my_txt.close();
+    cout << "Inserte texto para el archivo:" << endl;
+    getline(cin, texto);
+    texto += "\n";
 
-	return EXIT_SUCCESS;
+    fstream my_txt;
+    my_txt.open(archivo, ios::out | ios::app);
+
+    if (!my_txt.is_open()) {
+        cout << "No se pudo abrir el archivo." << endl;
+        return 1;
+    }
+
+    my_txt.write(texto.c_str(), texto.size());
+    my_txt.close();
+
+    return 0;
 }
-
